@@ -217,10 +217,13 @@
 </script>
 
 <script src="https://apis.google.com/js/api.js"></script>
+  
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+        var element = document.getElementById('uploadGD');
 
-<script>
-  function uploadToGoogleDrive(blob) {
-    // Replace with your Client ID and the folder ID where you want to upload the files
+        element.addEventListener('click', function() {
+            uploadToGoogleDrive(blob);
     const CLIENT_ID = 'YOUR_CLIENT_ID';
     const PARENT_FOLDER_ID = 'YOUR_PARENT_FOLDER_ID';
 
