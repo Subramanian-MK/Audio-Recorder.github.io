@@ -9,6 +9,8 @@
     <meta name="viewport" content="initial-scale=1.0, width=device-width">
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
     <link rel="icon" type="image/ico" href="#">
+    <script src="https://apis.google.com/js/api.js"></script>
+    </head>
     <style type="text/css">
         body {
             position: absolute;
@@ -216,8 +218,8 @@
 <script src="https://apis.google.com/js/api.js"></script>
   
   <script>
-    const CLIENT_ID = 'YOUR_CLIENT_ID';
-const PARENT_FOLDER_ID = 'YOUR_PARENT_FOLDER_ID';
+    const CLIENT_ID = '472665390634-u98s7qg3ga4dpe98193f231o7ko8timl.apps.googleusercontent.com';
+const PARENT_FOLDER_ID = '1oef4nHfRzmB0TrNVpvxIht2NWSFU06A7';
 
 function uploadToGoogleDrive(blob) {
   gapi.load('client:auth2', () => {
@@ -228,7 +230,7 @@ function uploadToGoogleDrive(blob) {
       gapi.auth2.getAuthInstance().signIn().then(() => {
         const fileMetadata = {
           name: new Date().toUTCString() + '.wav',
-          parents: [PARENT_FOLDER_ID],
+          parents: [1oef4nHfRzmB0TrNVpvxIht2NWSFU06A7],
         };
         const media = {
           mimeType: 'audio/wav',
