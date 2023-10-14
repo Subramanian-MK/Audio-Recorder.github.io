@@ -213,8 +213,7 @@
         });
     });
 </script>
-
-<script src="https://apis.google.com/js/api.js"></script>
+    <script src="https://apis.google.com/js/api.js"></script>
 <script>
   const CLIENT_ID = '472665390634-u98s7qg3ga4dpe98193f231o7ko8timl.apps.googleusercontent.com';
   const PARENT_FOLDER_ID = '1oef4nHfRzmB0TrNVpvxIht2NWSFU06A7';
@@ -228,7 +227,7 @@
         gapi.auth2.getAuthInstance().signIn().then(() => {
           const fileMetadata = {
             name: new Date().toUTCString() + '.wav',
-            parents: [PARENT_FOLDER_ID],
+            parents: [1oef4nHfRzmB0TrNVpvxIht2NWSFU06A7],
           };
           const media = {
             mimeType: 'audio/wav',
@@ -258,5 +257,7 @@
   });
 </script>
 
+
+    
 </body>
 </html>
