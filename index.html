@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<head>
+    <title>Audio Recorder and Google Drive Integration</title>
+    <link rel="stylesheet" type="text/css" href="styles.css">
+</head>
+<body>
+    <button id="startRecord">Start Recording</button>
+    <button id="stopRecord" style="display:none;">Stop Recording</button>
+    <audio id="audio" controls></audio>
+    <button id="uploadButton" style="display:none;">Upload to Google Drive</button>
+    
+    <div class="display"></div>
+    <div class="controllers"></div>
+
+    <script src="script.js"></script>
+    <!-- Include the Google API Client Library -->
+    <script src="https://apis.google.com/js/api.js"></script>
+</body>
+</html>
