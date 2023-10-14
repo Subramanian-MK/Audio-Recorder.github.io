@@ -4,14 +4,11 @@
     <title>Tutorial &gt; Audio Recorder</title>
     <link rel="canonical" href="https://markjivko.com/tutorials/B3wWIsNHPk4/">
     <meta charset="UTF-8">
-    <meta name="Author" content="Mark Jivko">
-    <meta name="Keywords" content="js, audio recorder">
-    <meta name="Description" content="Recording audio with HTML 5 and JavaScript">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <meta name="viewport" content="initial-scale=1.0, width=device-width">
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-    <link rel="icon" type="image/ico" href="https://markjivko.com/favicon.ico">
+    <link rel="icon" type="image/ico" href="#">
     <style type="text/css">
         body {
             position: absolute;
@@ -128,7 +125,7 @@
         <button id="stopRecord" style="display: none;">Stop</button>
     </div>
     <div data-role="recordings"></div>
-    <button id="uploadButton" class="upload-button" style="display: none;">Upload to Google Drive</button>
+   <button id="uploadButton" class="upload-button" style="display: none;" onclick="uploadToGoogleDrive(blob)">Upload to Google Drive</button>
 </div>
 <script type="text/javascript" src="https://code.jquery.com/jquery.min.js"></script>
 <script src="https://markjivko.com/dist/recorder.js"></script>
@@ -219,40 +216,45 @@
 <script src="https://apis.google.com/js/api.js"></script>
   
   <script>
-    document.addEventListener('DOMContentLoaded', function() {
-        var element = document.getElementById('uploadGD');
-
-        element.addEventListener('click', function() {
-            uploadToGoogleDrive(blob);
     const CLIENT_ID = 'YOUR_CLIENT_ID';
-    const PARENT_FOLDER_ID = 'YOUR_PARENT_FOLDER_ID';
+const PARENT_FOLDER_ID = 'YOUR_PARENT_FOLDER_ID';
 
-    gapi.load('client:auth2', () => {
-        gapi.client.init({
-            clientId: CLIENT_ID,
-            scope: 'https://www.googleapis.com/auth/drive.file',
-        }).then(() => {
-            gapi.auth2.getAuthInstance().signIn().then(() => {
-                const fileMetadata = {
-                    name: new Date().toUTCString() + '.wav',
-                    parents: [PARENT_FOLDER_ID],
-                };
-                const media = {
-                    mimeType: 'audio/wav',
-                    body: blob,
-                };
-                gapi.client.drive.files.create({
-                    resource: fileMetadata,
-                    media: media,
-                    fields: 'id',
-                }).then((response) => {
-                    console.log('File ID:', response.result.id);
-                }).catch((error) => {
-                    console.error('Error uploading to Google Drive:', error);
-                });
-            });
+function uploadToGoogleDrive(blob) {
+  gapi.load('client:auth2', () => {
+    gapi.client.init({
+      clientId: CLIENT_ID,
+      scope: 'https://www.googleapis.com/auth/drive.file',
+    }).then(() => {
+      gapi.auth2.getAuthInstance().signIn().then(() => {
+        const fileMetadata = {
+          name: new Date().toUTCString() + '.wav',
+          parents: [PARENT_FOLDER_ID],
+        };
+        const media = {
+          mimeType: 'audio/wav',
+          body: blob,
+        };
+        gapi.client.drive.files.create({
+          resource: fileMetadata,
+          media: media,
+          fields: 'id',
+        }).then((response) => {
+          console.log('File ID:', response.result.id);
+        }).catch((error) => {
+          console.error('Error uploading to Google Drive:', error);
         });
-    }
+      });
+    });
+  }
+}
+
+document.addEventListener('DOMContentLoaded', function() {
+  var element = document.getElementById('uploadButton');
+
+  element.addEventListener('click', function() {
+    uploadToGoogleDrive(blob);
+  });
+});
 </script>
 </body>
 </html>
