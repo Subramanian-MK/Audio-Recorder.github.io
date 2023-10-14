@@ -9,7 +9,6 @@
     <meta name="viewport" content="initial-scale=1.0, width=device-width">
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
     <link rel="icon" type="image/ico" href="#">
-    <script src="https://apis.google.com/js/api.js"></script>
     </head>
     <style type="text/css">
         body {
@@ -216,47 +215,48 @@
 </script>
 
 <script src="https://apis.google.com/js/api.js"></script>
-  
-  <script>
-    const CLIENT_ID = '472665390634-u98s7qg3ga4dpe98193f231o7ko8timl.apps.googleusercontent.com';
-const PARENT_FOLDER_ID = '1oef4nHfRzmB0TrNVpvxIht2NWSFU06A7';
+<script>
+  const CLIENT_ID = '472665390634-u98s7qg3ga4dpe98193f231o7ko8timl.apps.googleusercontent.com';
+  const PARENT_FOLDER_ID = '1oef4nHfRzmB0TrNVpvxIht2NWSFU06A7';
 
-function uploadToGoogleDrive(blob) {
-  gapi.load('client:auth2', () => {
-    gapi.client.init({
-      clientId: CLIENT_ID,
-      scope: 'https://www.googleapis.com/auth/drive.file',
-    }).then(() => {
-      gapi.auth2.getAuthInstance().signIn().then(() => {
-        const fileMetadata = {
-          name: new Date().toUTCString() + '.wav',
-          parents: [1oef4nHfRzmB0TrNVpvxIht2NWSFU06A7],
-        };
-        const media = {
-          mimeType: 'audio/wav',
-          body: blob,
-        };
-        gapi.client.drive.files.create({
-          resource: fileMetadata,
-          media: media,
-          fields: 'id',
-        }).then((response) => {
-          console.log('File ID:', response.result.id);
-        }).catch((error) => {
-          console.error('Error uploading to Google Drive:', error);
+  function uploadToGoogleDrive(blob) {
+    gapi.load('client:auth2', () => {
+      gapi.client.init({
+        clientId: CLIENT_ID,
+        scope: 'https://www.googleapis.com/auth/drive.file',
+      }).then(() => {
+        gapi.auth2.getAuthInstance().signIn().then(() => {
+          const fileMetadata = {
+            name: new Date().toUTCString() + '.wav',
+            parents: [PARENT_FOLDER_ID],
+          };
+          const media = {
+            mimeType: 'audio/wav',
+            body: blob,
+          };
+          gapi.client.drive.files.create({
+            resource: fileMetadata,
+            media: media,
+            fields: 'id',
+          }).then((response) => {
+            console.log('File ID:', response.result.id);
+          }).catch((error) => {
+            console.error('Error uploading to Google Drive:', error);
+          });
         });
       });
     });
   }
-}
 
-document.addEventListener('DOMContentLoaded', function() {
-  var element = document.getElementById('uploadButton');
+  document.addEventListener('DOMContentLoaded', function () {
+    var element = document.getElementById('uploadButton');
 
-  element.addEventListener('click', function() {
-    uploadToGoogleDrive(blob);
+    element.addEventListener('click', function () {
+      // Call your upload function here
+      uploadToGoogleDrive(blob);
+    });
   });
-});
 </script>
+
 </body>
 </html>
